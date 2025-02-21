@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: mydb  # Nome del database come definito in DBT
+    description: "Database di origine"
+    schema: public  # Nome dello schema in PostgreSQL
+    tables:
+      - name: orders
+        description: "Tabella degli ordini originali"
+
+models:
+  - name: stg_orders
+    description: "Tabella degli ordini filtrati"
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "ID del cliente che ha effettuato l'ordine"
+        tests:
+          - not_null
+      - name: order_date
+        description: "Data dell'ordine"
+    
